@@ -15,7 +15,23 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'email', 
+        'password', 
+        'user_id', 
+        'login_id', 
+        'first_name', 
+        'middle_name', 
+        'last_name', 
+        'role_id', 
+        'custname',
+        'tmprole',
+        'can_modify_referrals',
+        'is_admin',
+        'can_create_users',
+        'can_view_reports',
+        'disabled',
+        'created_at',
+        'updated_at'
     ];
 
     /**
@@ -26,4 +42,14 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function u2c()
+    {
+        return $this->hasMany('App\UsersToClients');
+    }
+
+    public function permissions()
+    {
+        return $this->hasMany('App\Permission');
+    }
 }

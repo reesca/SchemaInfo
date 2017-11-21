@@ -13,13 +13,32 @@ use Faker\Generator as Faker;
 |
 */
 
+$autoIncrement = autoIncrement();
+
 $factory->define(App\User::class, function (Faker $faker) {
-    static $password;
+    
+    $firstName = $faker->firstName;
+    
+    $lastName = $faker->lastName;
+    
+    $name = $firstName . ' ' . $lastName;
+
+    $domain = "example.org";
+
+    $email = strtolower($firstName[0] . "." . $lastName . "@" . $domain);
+
+    $now = now();
 
     return [
-        'name' => $faker->name,
-        'email' => $faker->unique()->safeEmail,
-        'password' => $password ?: $password = bcrypt('secret'),
-        'remember_token' => str_random(10),
+        // 'name' => $faker->name,
+        // 'password' => $password ?: $password = bcrypt('q'),
+
+        'email' => $email,     
+        'name' => $name, 
+        'last_name' => $lastName,   
+        'password' => '$2y$10$v7UA4cNXzQYJFQgBSa2eo.2bl5xc29CcTv24ZiJg3Xa.1EfE.jU4W',   
+        'role_id' => 4,               
+        'created_at' => $now,
+        'updated_at' => $now,
     ];
 });
